@@ -1,4 +1,4 @@
-import markdown.postprocessors
+import markdown.extensions
 import markdown.util
 from bleach import clean, ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES
 
