@@ -1,5 +1,5 @@
-import markdown.extensions
 import markdown.util
+from markdown.postprocessors import Postprocessor
 from bleach import clean, ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES
 
 class BleachRawHtmlPostprocessor(Postprocessor):
