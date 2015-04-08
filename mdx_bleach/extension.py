@@ -57,4 +57,4 @@ class BleachExtension(Extension):
         strip = self.getConfig('strip', False)
         strip_comments = self.getConfig('strip_comments', True)
 
-        md.postprocessors["raw_html"] = BleachRawHtmlPostprocessor(tags, attributes, styles, strip, strip_comments)
+        md.postprocessors["raw_html"] = BleachRawHtmlPostprocessor(md, tags, attributes, styles, strip, strip_comments)

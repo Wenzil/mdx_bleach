@@ -5,8 +5,9 @@ from bleach import clean, ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES
 class BleachRawHtmlPostprocessor(Postprocessor):
     """ Restore raw html to the document and sanitize it. """
 
-    def __init__(self, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES,
+    def __init__(self, md, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES,
                  styles=ALLOWED_STYLES, strip=False, strip_comments=True):
+        self.markdown = md
         self.tags = tags
         self.attributes = attributes
         self.styles = styles
