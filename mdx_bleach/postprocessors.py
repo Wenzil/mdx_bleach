@@ -1,4 +1,5 @@
 import markdown.util
+import bleach
 from markdown.postprocessors import Postprocessor
 from .whitelist import ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES
 
@@ -20,7 +21,7 @@ class BleachRawHtmlPostprocessor(Postprocessor):
             import pdb; pdb.set_trace()
             html, safe = self.markdown.htmlStash.rawHtmlBlocks[i]
             if not safe:
-                html = clean(html, self.tags, self.attributes, self.styles, self.strip, self.strip_comments)
+                html = bleach.clean(html, self.tags, self.attributes, self.styles, self.strip, self.strip_comments)
             if safe and self.isblocklevel(html):
                 text = text.replace(
                     "<p>%s</p>" % (self.markdown.htmlStash.get_placeholder(i)),
@@ -54,4 +55,4 @@ class BleachPostprocessor(Postprocessor):
 
     def run(self, text):
         """ Sanitize the markdown output. """
-        return clean(text, self.tags, self.attributes, self.styles, self.strip, self.strip_comments)
+        return bleach.clean(text, self.tags, self.attributes, self.styles, self.strip, self.strip_comments)
