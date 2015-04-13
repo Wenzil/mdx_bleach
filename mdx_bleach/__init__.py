@@ -2,7 +2,7 @@
 from mdx_bleach.extension import BleachExtension
 
 
-VERSION = '0.0.6'
+VERSION = '0.0.7'
 
 
 def makeExtension(**kwargs):
