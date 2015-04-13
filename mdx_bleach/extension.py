@@ -62,4 +62,4 @@ class BleachExtension(Extension):
         #md.preprocessors['html_block'] = None
         #md.postprocessors['raw_html'] = None
         #md.treeprocessors.add('bleach_html', BleachRawHtmlTreeprocessor(md, tags, attributes, styles, strip, strip_comments), '<inline')
-        md.postprocessors['bleach'] = BleachPostprocessor(md, tags, attributes, styles, strip, strip_comments)
+        md.postprocessors.add('bleach', BleachPostprocessor(md, tags, attributes, styles, strip, strip_comments), '>raw_html')
