@@ -1,6 +1,6 @@
 import markdown.util
 from markdown.postprocessors import Postprocessor
-from bleach import clean, ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES
+from .whitelist import ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES
 
 class BleachRawHtmlPostprocessor(Postprocessor):
     """ Restore raw html to the document and sanitize it. """
@@ -39,3 +39,19 @@ class BleachRawHtmlPostprocessor(Postprocessor):
                 return True
             return markdown.util.isBlockLevel(m.group(1))
         return False
+
+class BleachPostprocessor(Postprocessor):
+    """ Sanitize the markdown output. """
+
+    def __init__(self, md, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES,
+                 styles=ALLOWED_STYLES, strip=False, strip_comments=True):
+        self.markdown = md
+        self.tags = tags
+        self.attributes = attributes
+        self.styles = styles
+        self.strip = strip
+        self.strip_comments = strip_comments
+
+    def run(self, text):
+        """ Sanitize the markdown output. """
+        return clean(text, self.tags, self.attributes, self.styles, self.strip, self.strip_comments)

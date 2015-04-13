@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from markdown import Extension
-from bleach import ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES
-from .postprocessors import BleachRawHtmlPostprocessor
-
+from .whitelist import ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES
+#from .treeprocessors import BleachRawHtmlTreeprocessor
+#from .postprocessors import BleachRawHtmlPostprocessor
+from .postprocessors import BleachPostprocessor
 
 class BleachExtension(Extension):
 
@@ -13,8 +14,9 @@ class BleachExtension(Extension):
                 ALLOWED_TAGS,
                 "Whitelist of allowed HTML tags. It should be a list, tuple, "
                 "or other iterable. Any other HTML tags will be escaped or "
-                "stripped from the text. Its default value is a relatively "
-                "conservative list found in bleach.ALLOWED_TAGS"
+                "stripped from the text. This applies to the html output that "
+                "Markdown produces. The default value is a conservative list of "
+                "tags found in mdx_bleach.whitelist.ALLOWED_TAGS."
             ],
             'attributes': [
                 ALLOWED_ATTRIBUTES,
@@ -22,10 +24,10 @@ class BleachExtension(Extension):
                 "attributes are allowed for any tag, or a dictionary, in which "
                 "case the keys are tag names (or a wildcard: * for all tags) "
                 "and the values are lists of allowed attributes. The default "
-                "value is a conservative dict found in bleach.ALLOWED_ATTRIBUTES"
-                "You can also use a callable (instead of a list). If the "
-                "callable returns True, the attribute is allowed. Otherwise, it "
-                "is stripped."
+                "value is a conservative dictionary of attribute lists found in "
+                "mdx_bleach.whitelist.ALLOWED_ATTRIBUTES. You can also use a "
+                "callable (instead of a list). If the callable returns True, "
+                "the attribute is allowed. Otherwise, it is stripped."
             ],
             'styles': [
                 ALLOWED_STYLES,
@@ -57,4 +59,7 @@ class BleachExtension(Extension):
         strip = self.getConfig('strip', False)
         strip_comments = self.getConfig('strip_comments', True)
 
-        md.postprocessors["raw_html"] = BleachRawHtmlPostprocessor(md, tags, attributes, styles, strip, strip_comments)
+        #md.preprocessors['html_block'] = None
+        #md.postprocessors['raw_html'] = None
+        #md.treeprocessors.add('bleach_html', BleachRawHtmlTreeprocessor(md, tags, attributes, styles, strip, strip_comments), '<inline')
+        md.postprocessors['bleach'] = BleachPostprocessor(md, tags, attributes, styles, strip, strip_comments)
