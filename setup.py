@@ -15,7 +15,7 @@ except Exception:
 
 setup(
     name='python-markdown-bleach',
-    version='0.0.7',
+    version='0.0.8',
     description="Markdown extension to sanitize the raw html within untrusted "
                 "markdown sources.",
     long_description=LONG_DESCRIPTION,
