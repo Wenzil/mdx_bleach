@@ -4,24 +4,24 @@ Default whitelist of allowed HTML tags. Any other HTML tags will be escaped or
 stripped from the text. This applies to the html output that Markdown produces.
 """
 ALLOWED_TAGS = [
-    'ul'
-    'ol'
-    'li'
-    'p'
-    'pre'
-    'code'
-    'blockquote'
-    'h1'
-    'h2'
-    'h3'
-    'h4'
-    'h5'
-    'h6'
-    'hr'
-    'br'
-    'strong'
-    'em'
-    'a'
+    'ul',
+    'ol',
+    'li',
+    'p',
+    'pre',
+    'code',
+    'blockquote',
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'hr',
+    'br',
+    'strong',
+    'em',
+    'a',
     'img'
 ]
 
