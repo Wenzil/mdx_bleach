@@ -8,12 +8,14 @@ Markdown extension to sanitize the output of untrusted Markdown documents.
 
 ## Basic Usage
 
-    >>> import markdown
-    >>> from mdx_bleach.extension import BleachExtension
-    >>> bleach = BleachExtension()
-    >>> md = markdown.Markdown(extensions=[bleach])
-    >>> md.convert('<span>is not allowed</span>')
-    u'<p>&lt;span&gt;is not allowed&lt;/span&gt;</p>'
+```python
+>>> import markdown
+>>> from mdx_bleach.extension import BleachExtension
+>>> bleach = BleachExtension()
+>>> md = markdown.Markdown(extensions=[bleach])
+>>> md.convert('<span>is not allowed</span>')
+u'<p>&lt;span&gt;is not allowed&lt;/span&gt;</p>'
+```
 
 ## Overview
 
@@ -36,10 +38,12 @@ To configure the extension, pass the following keyword arguments to ``BleachExte
 
 The following example reflects the default configuration::
 
-    from mdx_bleach.whitelist import ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES
-    bleach = BleachExtension(tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES,
-        styles=ALLOWED_STYLES, strip=False, strip_comments=True)
-    md = markdown.Markdown(extensions=[bleach])
+```python
+from mdx_bleach.whitelist import ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES
+bleach = BleachExtension(tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES,
+    styles=ALLOWED_STYLES, strip=False, strip_comments=True)
+md = markdown.Markdown(extensions=[bleach])
+```
 
 ### Tag Whitelist
 
@@ -48,17 +52,19 @@ tuple, or other iterable. Any other HTML tags will be escaped or stripped from
 the text. This applies to the HTML output that Markdown produces. The default
 value is a conservative list of tags found in ``mdx_bleach.whitelist.ALLOWED_TAGS``.
 
-Since Markdown outputs common HTML elements like ``p``, ``a``, ``img`` all
-the time, it is recommended to allow at minimum the sensible set of tags found
-in the default tag whitelist.
+Since Markdown normally outputs common HTML elements like ``p``, ``a``, ``img``
+all the time, it is recommended to allow at minimum the sensible set of tags
+found in the default tag whitelist.
 
 For example::
 
-    >>> from mdx_bleach.whitelist import ALLOWED_TAGS
-    >>> bleach = BleachExtension(tags=ALLOWED_TAGS + ['small'])
-    >>> md = markdown.Markdown(extensions=[bleach])
-    >>> md.convert('<small>is allowed</small>')
-    u'<p><small>is allowed</small></p>'
+```python
+>>> from mdx_bleach.whitelist import ALLOWED_TAGS
+>>> bleach = BleachExtension(tags=ALLOWED_TAGS + ['small'])
+>>> md = markdown.Markdown(extensions=[bleach])
+>>> md.convert('<small>is allowed</small>')
+u'<p><small>is allowed</small></p>'
+```
 
 This will allow raw ``small`` elements included by the author along with any
 element listed in the default tag whitelist that might be included by the
@@ -80,11 +86,13 @@ as well as the ``src``, ``title`` and ``alt`` attributes in ``<img>`` tags.
 
 For example::
 
-    attrs = {
-        '*': ['class'],
-        'a': ['href', 'title', 'rel'],
-        'img': ['src', 'title', 'alt'],
-    }
+```python
+attrs = {
+    '*': ['class'],
+    'a': ['href', 'title', 'rel'],
+    'img': ['src', 'title', 'alt'],
+}
+```
 
 In this case, the ``class`` attribute is allowed on any allowed element (from
 the ``tags`` argument), ``<a>`` tags are allowed to have ``href``, ``title`` and
@@ -95,13 +103,15 @@ the attribute is allowed. Otherwise, it is stripped.
 
 For example::
 
-    def filter_src(name, value):
-        if name in ('alt', 'title', 'height', 'width'):
-            return True
-        if name == 'src':
-            p = urlparse(value)
-            return (not p.netloc) or p.netloc == 'mydomain.com'
-        return False
+```python
+def filter_src(name, value):
+    if name in ('alt', 'title', 'height', 'width'):
+        return True
+    if name == 'src':
+        p = urlparse(value)
+        return (not p.netloc) or p.netloc == 'mydomain.com'
+    return False
+```
 
 ### Styles Whitelist
 
@@ -111,42 +121,50 @@ default value is an empty list.
 
 For example, to allow authors to set the color and font-weight of spans::
 
-    attrs = {
-        'span': ['style']
-    }
-    attrs = dict(ALLOWED_ATTRIBUTES.items() + attr.items())
-    tags = ALLOWED_TAGS + ['span']
-    styles = ['color', 'font-weight']
+```python
+attrs = {
+    'span': ['style']
+}
+attrs = dict(ALLOWED_ATTRIBUTES.items() + attr.items())
+tags = ALLOWED_TAGS + ['span']
+styles = ['color', 'font-weight']
+```
 
 ### Stripping Markup
 
 By default, Bleach *escapes* disallowed or invalid markup. For example::
 
-    >>> md = markdown.Markdown(extensions=[BleachExtension()])
-    >>> md.convert('<span>is not allowed</span>')
-    u'<p>&lt;span&gt;is not allowed&lt;/span&gt;'
+```python
+>>> md = markdown.Markdown(extensions=[BleachExtension()])
+>>> md.convert('<span>is not allowed</span>')
+u'<p>&lt;span&gt;is not allowed&lt;/span&gt;'
+```
 
 If you would rather Bleach stripped this markup entirely, you can pass
 ``strip=True``::
 
-    >>> md = markdown.Markdown(extensions=[BleachExtension(strip=True)])
-    >>> md.convert('<span>is not allowed</span>')
-    u'<p>is not allowed</p>'
+```python
+>>> md = markdown.Markdown(extensions=[BleachExtension(strip=True)])
+>>> md.convert('<span>is not allowed</span>')
+u'<p>is not allowed</p>'
+```
 
 ### Stripping Comments
 
 By default, Bleach will strip out HTML comments. To disable this behavior, set
 ``strip_comments=False``::
 
-    >>> html = 'my<!-- commented --> html'
+```python
+>>> html = 'my<!-- commented --> html'
 
-    >>> md = markdown.Markdown(extensions=[BleachExtension()])
-    >>> md.convert(html)
-    u'<p>my html</p>'
+>>> md = markdown.Markdown(extensions=[BleachExtension()])
+>>> md.convert(html)
+u'<p>my html</p>'
 
-    >>> md = markdown.Markdown(extensions=[BleachExtension(strip_comments=False)])
-    >>> md.convert(html)
-    u'<p>my<!-- commented --> html</p>'
+>>> md = markdown.Markdown(extensions=[BleachExtension(strip_comments=False)])
+>>> md.convert(html)
+u'<p>my<!-- commented --> html</p>'
+```
 
 ## Links
 
