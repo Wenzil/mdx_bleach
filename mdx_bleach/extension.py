@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from markdown import Extension
 from .whitelist import ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES
-#from .treeprocessors import BleachRawHtmlTreeprocessor
-#from .postprocessors import BleachRawHtmlPostprocessor
 from .postprocessors import BleachPostprocessor
 
 class BleachExtension(Extension):
@@ -32,7 +30,7 @@ class BleachExtension(Extension):
             'styles': [
                 ALLOWED_STYLES,
                 "If you allow the style attribute, you will also need to "
-                "whitelist styles users are allowed to set, for example color "
+                "whitelist styles authors are allowed to set, for example color "
                 "and background-color. The default value is an empty list."
             ],
             'strip': [
@@ -59,7 +57,4 @@ class BleachExtension(Extension):
         strip = self.getConfig('strip', False)
         strip_comments = self.getConfig('strip_comments', True)
 
-        #md.preprocessors['html_block'] = None
-        #md.postprocessors['raw_html'] = None
-        #md.treeprocessors.add('bleach_html', BleachRawHtmlTreeprocessor(md, tags, attributes, styles, strip, strip_comments), '<inline')
         md.postprocessors.add('bleach', BleachPostprocessor(md, tags, attributes, styles, strip, strip_comments), '>raw_html')
