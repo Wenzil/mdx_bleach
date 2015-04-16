@@ -14,12 +14,13 @@ except Exception:
 setup(
     name='mdx_bleach',
     version='0.1.0',
-    description="Python Markdown extension to sanitize the output of untrusted
+    description="Python-Markdown extension to sanitize the output of untrusted "
                 "Markdown documents.",
     long_description=LONG_DESCRIPTION,
     author='Sami Turcotte',
     author_email='samiturcotte@gmail.com',
     url='https://github.com/Wenzil/mdx_bleach',
+    download_url='https://github.com/Wenzil/mdx_bleach/tarball/0.1.0',
     license='MIT License',
     classifiers=(
         "Development Status :: 4 - Beta",

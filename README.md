@@ -1,10 +1,10 @@
-# Python Markdown Bleach
+# mdx_bleach
 
-Markdown extension to sanitize the output of untrusted Markdown documents.
+Python-Markdown extension to sanitize the output of untrusted Markdown documents.
 
 ## Installation
 
-    pip install python-markdown-bleach
+    pip install mdx_bleach
 
 ## Basic Usage
 
@@ -21,11 +21,14 @@ u'<p>&lt;span&gt;is not allowed&lt;/span&gt;</p>'
 
 By design, all HTML markup is allowed in Markdown documents. Unless written
 inside a code block, raw HTML is not escaped and is therefore rendered by the
-browser. While this is a nice authoring feature, it also exposes some XSS
+web browsers. While this is a nice authoring feature, it also exposes some XSS
 vulnerabilities. That becomes a problem when the source of the Markdown document
 is untrusted.
 
-Python Markdown Bleach is a safer and more flexible alternative to [Python Markdown](https://pythonhosted.org/Markdown/reference.html)'s deprecated safe mode. It uses [Bleach](http://bleach.readthedocs.org/en/latest/), a robust a whitelist-based HTML sanitizer, to sanitize the output of Markdown documents.
+**mdx_bleach** is a safer and more flexible alternative to
+[Python-Markdown](https://pythonhosted.org/Markdown/reference.html)'s deprecated
+safe mode. It uses [Bleach](http://bleach.readthedocs.org/en/latest/), a robust
+whitelist-based HTML sanitizer, to sanitize the output of Markdown documents.
 
 ## Configuration
 
@@ -51,7 +54,7 @@ The ``tags`` kwarg is a whitelist of allowed HTML tags. It should be a list,
 tuple, or other iterable. Any other HTML tags will be escaped or stripped from
 the text. This applies to the HTML output that Markdown produces.
 
-Since Markdown commonly outputs HTML elements like ``p``, ``a``, ``img``, etc.
+Since Markdown commonly generates HTML elements like ``p``, ``a``, ``img``, etc.
 it is recommended to allow at least the default minimal list of tags found in
 ``mdx_bleach.whitelist.ALLOWED_TAGS``.
 
@@ -165,7 +168,7 @@ u'<p>my<!-- commented --> html</p>'
 
 ## Links
 
-- [Source](https://github.com/Wenzil/python-markdown-bleach)
+- [Source](https://github.com/Wenzil/mdx_bleach)
 - [Bleach](http://bleach.readthedocs.org/en/latest/)
 - [Markdown](http://daringfireball.net/projects/markdown/)
-- [Python Markdown](https://pythonhosted.org/Markdown/)
+- [Python-Markdown](https://pythonhosted.org/Markdown/)
