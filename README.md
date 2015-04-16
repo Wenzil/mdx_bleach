@@ -1,6 +1,19 @@
 # mdx_bleach
 
-Python-Markdown extension to sanitize the output of untrusted Markdown documents.
+[Python-Markdown](https://pythonhosted.org/Markdown/) extension to sanitize the
+output of untrusted Markdown documents.
+
+## Overview
+
+By design, all HTML markup is allowed in Markdown documents. Unless written
+inside a code block, raw HTML is not escaped and is therefore rendered by the
+web browsers. While this is a nice authoring feature, it also exposes some XSS
+vulnerabilities. That becomes a problem when the source of the Markdown document
+is untrusted.
+
+**mdx_bleach** is a safer and more flexible alternative to Python-Markdown's
+[deprecated safe mode](https://pythonhosted.org/Markdown/reference.html#safe_mode).  It uses [Bleach](http://bleach.readthedocs.org/en/latest/), a robust whitelist-based
+HTML sanitizer, to sanitize the output of Markdown documents.
 
 ## Installation
 
@@ -17,22 +30,12 @@ Python-Markdown extension to sanitize the output of untrusted Markdown documents
 u'<p>&lt;span&gt;is not allowed&lt;/span&gt;</p>'
 ```
 
-## Overview
-
-By design, all HTML markup is allowed in Markdown documents. Unless written
-inside a code block, raw HTML is not escaped and is therefore rendered by the
-web browsers. While this is a nice authoring feature, it also exposes some XSS
-vulnerabilities. That becomes a problem when the source of the Markdown document
-is untrusted.
-
-**mdx_bleach** is a safer and more flexible alternative to
-[Python-Markdown](https://pythonhosted.org/Markdown/reference.html)'s deprecated
-safe mode. It uses [Bleach](http://bleach.readthedocs.org/en/latest/), a robust
-whitelist-based HTML sanitizer, to sanitize the output of Markdown documents.
+Because the ``<span>`` tag isn't allowed by default, **mdx_bleach** escapes it.
+The default whitelists can be found in ``mdx_bleach.whitelist``.
 
 ## Configuration
 
-To configure the extension, pass the following keyword arguments to ``BleachExtension``:
+To configure **mdx_bleach**, pass the following keyword arguments to ``BleachExtension``:
 * ``tags`` Tag Whitelist
 * ``attributes`` Attribute Whitelist
 * ``styles`` Styles Whitelist
@@ -55,7 +58,7 @@ tuple, or other iterable. Any other HTML tags will be escaped or stripped from
 the text. This applies to the HTML output that Markdown produces.
 
 Since Markdown commonly generates HTML elements like ``p``, ``a``, ``img``, etc.
-it is recommended to allow at least the default minimal list of tags found in
+it is recommended to allow no less than the default tag whitelist found in
 ``mdx_bleach.whitelist.ALLOWED_TAGS``.
 
 For example::
