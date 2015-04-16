@@ -1,10 +1,8 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
-
 
 try:
     with open('README.md', 'r') as readme:
@@ -14,22 +12,28 @@ except Exception:
 
 
 setup(
-    name='python-markdown-bleach',
+    name='mdx_bleach',
     version='0.1.0',
-    description="Markdown extension to sanitize the raw html within untrusted "
-                "markdown sources.",
+    description="Python Markdown extension to sanitize the output of untrusted
+                "Markdown documents.",
     long_description=LONG_DESCRIPTION,
     author='Sami Turcotte',
     author_email='samiturcotte@gmail.com',
-    url='https://github.com/Wenzil/python-markdown-bleach',
+    url='https://github.com/Wenzil/mdx_bleach',
     license='MIT License',
     classifiers=(
         "Development Status :: 4 - Beta",
-        "License :: MIT License",
+        "Intended Audience :: Education",
+        "License :: OSI Approved :: MIT License",
+        "Natural Language :: English",
+        "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Topic :: Text Processing :: Filters",
+        "Topic :: Text Processing :: Markup :: HTML",
     ),
-    keywords='markdown bleach',
+    keywords=['mdx', 'bleach', 'markdown', 'extension', 'sanitize', 'html'],
 
     packages=[
         'mdx_bleach',
