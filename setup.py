@@ -4,12 +4,19 @@ try:
 except ImportError:
     from distutils.core import setup
 
+# Read the README into long_description, converting to reStructuredText if
+# pypandoc is installed. This is because PyPI expects package descriptions to be
+# in reStructuredText format. Only the package maintainer needs to have pypandoc
+# installed.
 try:
-    with open('README.md', 'r') as readme:
-        LONG_DESCRIPTION = readme.read()
-except Exception:
+    try:
+        from pypandoc import convert
+        LONG_DESCRIPTION = convert('README.md', 'rst')
+    except ImportError:
+        with open('README.md', 'r') as readme:
+            LONG_DESCRIPTION = readme.read()
+except IOError:
     LONG_DESCRIPTION = None
-
 
 setup(
     name='mdx_bleach',
