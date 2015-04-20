@@ -99,6 +99,7 @@ attrs = {
     'a': ['href', 'title', 'rel'],
     'img': ['src', 'title', 'alt'],
 }
+bleach = BleachExtension(attributes=attrs)
 ```
 
 In this case, the ``class`` attribute is allowed on any allowed element (from
@@ -127,15 +128,14 @@ If you allow the ``style`` attribute, you will also need to whitelist styles
 authors are allowed to set, for example ``color`` and ``background-color``. The
 default value is an empty list.
 
-For example, to allow authors to set the color and font-weight of spans:
+For example, to allow authors to set the color and font-weight of ``span`` elements:
 
 ```python
-attrs = {
-    'span': ['style']
-}
-attrs = dict(ALLOWED_ATTRIBUTES.items() + attr.items())
 tags = ALLOWED_TAGS + ['span']
+attrs = ALLOWED_ATTRIBUTES.copy()
+attrs['span'] =  ['style']
 styles = ['color', 'font-weight']
+bleach = BleachExtension(tags=tags, attributes=attrs, styles=styles)
 ```
 
 
