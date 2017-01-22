@@ -47,7 +47,7 @@ setup(
         'mdx_bleach',
     ],
     install_requires=[
-        "bleach >= 1.4.1",
+        "bleach >= 1.5",
         "Markdown >= 2.6.1",
     ],
 
