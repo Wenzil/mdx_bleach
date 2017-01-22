@@ -41,15 +41,16 @@ To configure **mdx_bleach**, pass the following keyword arguments to ``BleachExt
 * ``tags`` Tag Whitelist
 * ``attributes`` Attribute Whitelist
 * ``styles`` Styles Whitelist
+* ``protocols`` Protocols Whitelist
 * ``strip`` Stripping Markup
 * ``strip_comments`` Stripping Comments
 
 The following example reflects the default configuration:
 
 ```python
-from mdx_bleach.whitelist import ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES
+from mdx_bleach.whitelist import ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES, ALLOWED_PROTOCOLS
 bleach = BleachExtension(tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES,
-    styles=ALLOWED_STYLES, strip=False, strip_comments=True)
+    styles=ALLOWED_STYLES, protocols=ALLOWED_PROTOCOLS, strip=False, strip_comments=True)
 md = markdown.Markdown(extensions=[bleach])
 ```
 
@@ -138,6 +139,24 @@ styles = ['color', 'font-weight']
 bleach = BleachExtension(tags=tags, attributes=attrs, styles=styles)
 ```
 
+### Protocol Whitelist
+
+If you allow tags that have attributes containing a URI value
+(like the href attribute of an anchor tag,) you may want to adapt
+the accepted protocols. The default list only allows http, https and mailto.
+
+For example, this sets allowed protocols to http, https and smb:
+
+```python
+protocols = ['http', 'https', 'smb']
+bleach = BleachExtension(protocols=protocols)
+```
+
+This adds smb to the bleach-specified set of allowed protocols:
+
+```python
+bleach = BleachExtension(protocols=ALLOWED_PROTOCOLS + ['smb'])
+```
 
 ### Stripping Markup
 

@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from markdown import Extension
-from .whitelist import ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES
+from .whitelist import (
+    ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES, ALLOWED_PROTOCOLS
+)
 from .postprocessors import BleachPostprocessor
+from .exceptions import ImproperlyConfigured
 
 class BleachExtension(Extension):
 
@@ -33,6 +36,13 @@ class BleachExtension(Extension):
                 "whitelist styles authors are allowed to set, for example color "
                 "and background-color. The default value is an empty list."
             ],
+            'protocols': [
+                ALLOWED_PROTOCOLS,
+                "If you allow tags that have attributes containing a URI "
+                "value  (like the href attribute of an anchor tag,) you may "
+                "want to adapt the accepted protocols. The default list only "
+                "allows http, https and mailto."
+            ],
             'strip': [
                 False,
                 "By default, Bleach escapes disallowed or invalid markup. If "
@@ -54,7 +64,10 @@ class BleachExtension(Extension):
         tags = self.getConfig('tags', ALLOWED_TAGS)
         attributes = self.getConfig('attributes', ALLOWED_ATTRIBUTES)
         styles = self.getConfig('styles', ALLOWED_STYLES)
+        protocols = self.getConfig('protocols', ALLOWED_PROTOCOLS)
         strip = self.getConfig('strip', False)
         strip_comments = self.getConfig('strip_comments', True)
 
-        md.postprocessors.add('bleach', BleachPostprocessor(md, tags, attributes, styles, strip, strip_comments), '>raw_html')
+        bleach_pp = BleachPostprocessor(md, tags, attributes, styles,
+                                        protocols, strip, strip_comments)
+        md.postprocessors.add('bleach', bleach_pp, '>raw_html')

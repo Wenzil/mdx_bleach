@@ -41,3 +41,10 @@ you will also need to whitelist styles users are allowed to set, for example
 color and background-color.
 """
 ALLOWED_STYLES = []
+
+"""
+If you allow tags that have attributes containing a URI value
+(like the href attribute of an anchor tag,) you may want to adapt
+the accepted protocols. The default list only allows http, https and mailto.
+"""
+ALLOWED_PROTOCOLS = ['http', 'https', 'mailto']
