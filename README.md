@@ -41,6 +41,7 @@ To configure **mdx_bleach**, pass the following keyword arguments to ``BleachExt
 * ``tags`` Tag Whitelist
 * ``attributes`` Attribute Whitelist
 * ``styles`` Styles Whitelist
+* ``protocols`` Protocols Whitelist
 * ``strip`` Stripping Markup
 * ``strip_comments`` Stripping Comments
 
