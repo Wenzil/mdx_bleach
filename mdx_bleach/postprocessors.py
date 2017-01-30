@@ -13,7 +13,7 @@ class BleachPostprocessor(Postprocessor):
         self.tags = tags
         self.attributes = attributes
         self.styles = styles
-        self.protocols = protocols,
+        self.protocols = protocols
         self.strip = strip
         self.strip_comments = strip_comments
 
