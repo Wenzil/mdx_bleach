@@ -20,7 +20,7 @@ except IOError:
 
 setup(
     name='mdx_bleach',
-    version='0.1.1',
+    version='0.1.2',
     description="Python-Markdown extension to sanitize the output of untrusted "
                 "Markdown documents.",
     long_description=LONG_DESCRIPTION,
