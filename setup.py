@@ -20,16 +20,16 @@ except IOError:
 
 setup(
     name='mdx_bleach',
-    version='0.1.2',
+    version='0.1.3',
     description="Python-Markdown extension to sanitize the output of untrusted "
                 "Markdown documents.",
     long_description=LONG_DESCRIPTION,
     author='Sami Turcotte',
     author_email='samiturcotte@gmail.com',
     url='https://github.com/Wenzil/mdx_bleach',
-    download_url='https://github.com/Wenzil/mdx_bleach/tarball/0.1.1',
-    license='MIT License',
-    classifiers=(
+    download_url='https://github.com/Wenzil/mdx_bleach/archive/0.1.3.tar.gz',
+    license='MIT',
+    classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Education",
         "License :: OSI Approved :: MIT License",
@@ -40,14 +40,14 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Text Processing :: Filters",
         "Topic :: Text Processing :: Markup :: HTML",
-    ),
+    ],
     keywords=['mdx', 'bleach', 'markdown', 'extension', 'sanitize', 'html'],
 
     packages=[
         'mdx_bleach',
     ],
     install_requires=[
-        "bleach >= 1.5",
+        "bleach >= 1.5, < 2",
         "Markdown >= 2.6.1",
     ],
 
