@@ -57,10 +57,7 @@ class BleachExtension(Extension):
         }
         super(BleachExtension, self).__init__(**kwargs)
 
-    def extendMarkdown(self, md, md_globals):
-        if md.safeMode:
-            raise ImproperlyConfigured("Markdown's safe mode is not supported.")
-
+    def extendMarkdown(self, md):
         tags = self.getConfig('tags', ALLOWED_TAGS)
         attributes = self.getConfig('attributes', ALLOWED_ATTRIBUTES)
         styles = self.getConfig('styles', ALLOWED_STYLES)
@@ -70,4 +67,4 @@ class BleachExtension(Extension):
 
         bleach_pp = BleachPostprocessor(md, tags, attributes, styles,
                                         protocols, strip, strip_comments)
-        md.postprocessors.add('bleach', bleach_pp, '>raw_html')
+        md.postprocessors.register(bleach_pp, 'bleach', 0)
