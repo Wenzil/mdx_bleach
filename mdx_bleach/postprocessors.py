@@ -22,7 +22,6 @@ class BleachPostprocessor(Postprocessor):
         return bleach.clean(text,
                             tags=self.tags,
                             attributes=self.attributes,
-                            styles=self.styles,
                             protocols=self.protocols,
                             strip=self.strip,
                             strip_comments=self.strip_comments
